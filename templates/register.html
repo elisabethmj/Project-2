@@ -2,7 +2,7 @@
 
 {% block main %}
 
-<form action="/login" method="post">
+<form action="/register" method="post">
   <div>
     <label for="username">Username</label>
     <input type="text" id="username" name="username">
@@ -12,6 +12,6 @@
     <input type="password" id="password" name="password">
   </div>
 
-  <button>Login</button>
+  <input type="submit" value="Register"/>
 </form>
 {% endblock %}

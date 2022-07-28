@@ -2,7 +2,7 @@
 CREATE TABLE restaurants (
   id serial PRIMARY KEY,
   user_id text NOT NULL,
-  restaurant_name text NOT NULL,
+  restaurant_name text NOT NULL UNIQUE,
   suburb text,
   city text,
   favourite_menu_item text,
@@ -13,6 +13,6 @@ CREATE TABLE restaurants (
 -- Users table
 CREATE TABLE users (
   id serial PRIMARY KEY,
-  username text NOT NULL UNIQUE, -- ensures that username is unique across all rows
+  username text NOT NULL UNIQUE,
   password_hash text NOT NULL
 );
