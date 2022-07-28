@@ -15,10 +15,31 @@ app.secret_key = SECRET_KEY.encode()
 
 @app.route("/")
 def index():
-    # get restaurant from  restaurant database
+    # using the cookie given to us by the browser
+    # look up username in our DB
     connection = psycopg2.connect(DATABASE_URL)
     cursor = connection.cursor()
-    cursor.execute("""
+
+    user_id_from_encrypted_cookie = session.get("user_id")
+    if user_id_from_encrypted_cookie:
+        cursor.execute("""
+            SELECT username
+            FROM users
+            WHERE id = %s
+            LIMIT 1
+        """, (user_id_from_encrypted_cookie,))
+        result = cursor.fetchone()
+    else:
+        result = None
+
+    if result:
+        username = result[0]
+    else:
+        username = None
+
+    # get restaurant from  restaurant database
+    
+    cursor.execute(f"""
         SELECT *
         FROM restaurants
         LIMIT 100
@@ -40,23 +61,7 @@ def index():
             'rating_out_of_five': row[7]
         })
 
-    # using the cookie given to us by the browser
-    # look up username in our DB
-    user_id_from_encrypted_cookie = session.get("user_id")
-    if user_id_from_encrypted_cookie:
-        cursor.execute("""
-            SELECT username
-            FROM users
-            WHERE id = %s
-            LIMIT 1
-        """, (user_id_from_encrypted_cookie,))
-        result = cursor.fetchone()
-    else:
-        result = None
-    if result:
-        username, = result
-    else:
-        username = None
+    
 
     return render_template("index.html", restaurants=restaurants, username=username)
 
@@ -224,3 +229,36 @@ def logout():
     session.pop("user_id", None)
 
     return redirect("/")
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+@app.route("/register", methods=["POST"])
+def process_register_form():
+    # plumbing code for us to query DB
+    connection = psycopg2.connect(DATABASE_URL)
+    cursor = connection.cursor()
+
+    # create our redirect to login response
+    response = redirect("/login")
+
+    # find user row in users table that matches the submitted username
+    cursor.execute("""
+        SELECT id, password_hash
+        FROM users
+        WHERE username = %s
+        LIMIT 1
+    """, (request.form.get("username"),))
+    user = cursor.fetchone()
+    if user:
+        return response
+    else:
+        user_id = request.form.get("username")
+        password = request.form.get("password")
+        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+        cursor.execute('INSERT INTO users (username, password_hash) VALUES (%s, %s)', (user_id, hashed_password))
+        connection.commit()
+        connection.close()
+        return response
