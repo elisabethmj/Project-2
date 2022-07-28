@@ -3,8 +3,7 @@
 {% block main %}
     <form action="/restaurant/create" method="post">
         <div>
-            <label for="user_id">Creator</label>
-            <input id="user_id" name="user_id">
+            <input type="hidden" id="user_id" name="user_id" value="{{ username }}">
         </div>
         <div>
             <label for="restaurant_name">Name</label>
@@ -23,7 +22,7 @@
             <input id="favourite_menu_item" name="favourite_menu_item">
         </div>
         <div>
-            <label for="price_pp">Price per person/label>
+            <label for="price_pp">Price per person</label>
             <input id="price_pp" name="price_pp">
         </div>
         <div>

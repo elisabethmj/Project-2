@@ -3,23 +3,26 @@
 <html>
     <head>
         <title>Restaurants</title>
-        <style>
-            form {
-                margin-bottom: 20px;
-            }
-            form div {
-                margin-bottom: 5px;
-            }
-        </style>
+        <link rel="stylesheet" href="/static/styles.css">
     </head>
     <body>
         <header>
-          <h1>Restaurants</h1>
+          <img src="/static/logo.png" alt="That place, the one with the...">
+          <nav>
+            <ul class="nav-bar">
+              <li><a href="/">Home</a></li>
+            {% if username %}
+            
+                <li><a href="/logout">Logout</a></li>
+            
+            {% else %}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            {% endif %}
+            </ul>
+          </nav>
           {% if username %}
-            Hi {{ username }}! <a href="/logout">Logout</a>
-          {% else %}
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
+            <span>Hi {{ username }}! </span>
           {% endif %}
         </header>
         {% block main %}

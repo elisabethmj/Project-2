@@ -27,7 +27,7 @@ def index():
             FROM users
             WHERE id = %s
             LIMIT 1
-        """, (user_id_from_encrypted_cookie,))
+            """, (user_id_from_encrypted_cookie,))
         result = cursor.fetchone()
     else:
         result = None
@@ -68,7 +68,29 @@ def index():
 
 @app.route("/restaurant/new")
 def restaurant_new():
-    return render_template("restaurant_new.html")
+     # using the cookie given to us by the browser
+    # look up username in our DB
+    connection = psycopg2.connect(DATABASE_URL)
+    cursor = connection.cursor()
+
+    user_id_from_encrypted_cookie = session.get("user_id")
+    if user_id_from_encrypted_cookie:
+        cursor.execute("""
+            SELECT username
+            FROM users
+            WHERE id = %s
+            LIMIT 1
+            """, (user_id_from_encrypted_cookie,))
+        result = cursor.fetchone()
+    else:
+        result = None
+
+    if result:
+        username = result[0]
+    else:
+        username = None
+    
+    return render_template("restaurant_new.html", username=username)
 
 @app.route("/restaurant/create", methods=["POST"])
 def restaurant_create():
@@ -122,7 +144,6 @@ def update_food():
 def update_restaurant_action():
     # retrieve data from request form
     id = request.form.get("id")
-    user_id = request.form.get("user_id")
     restaurant_name = request.form.get("restaurant_name")
     suburb = request.form.get("suburb")
     city = request.form.get("city")
@@ -133,7 +154,7 @@ def update_restaurant_action():
     # get food by id and update values
     conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute('UPDATE restaurants SET user_id=%s, restaurant_name=%s, suburb=%s, city=%s, favourite_menu_item=%s, price_pp=%s, rating_out_of_five=%s WHERE id=%s', [user_id, restaurant_name, suburb, city, favourite_menu_item, price_pp, rating_out_of_five, id])
+    cursor.execute('UPDATE restaurants SET restaurant_name=%s, suburb=%s, city=%s, favourite_menu_item=%s, price_pp=%s, rating_out_of_five=%s WHERE id=%s', [restaurant_name, suburb, city, favourite_menu_item, price_pp, rating_out_of_five, id])
     conn.commit()
     conn.close()
 

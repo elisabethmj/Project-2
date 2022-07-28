@@ -6,33 +6,31 @@
 <form action="/update_restaurant_action" method="POST">
 
     <!-- hidden -->
-    <input type="text" name="id" value=" {{ restaurant.id }}"> 
-     <!-- hidden -->
-     <input type="text" name="user_id" value=" {{ restaurant.user_id }}"> 
+    <input type="hidden" name="id" value=" {{restaurant.id}}"> 
 
     <p>
         <label for="restaurant_name">Name:</label>
-        <input id="restaurant_name" name="restaurant_name" value="{{ restaurant.restaurant_name }}">
+        <input id="restaurant_name" name="restaurant_name" value="{{restaurant.restaurant_name}}">
     </p>
     <p>
         <label for="suburb">Suburb:</label>
-        <input id="suburb" name="suburb" value="{{ restaurant.suburb }}">
+        <input id="suburb" name="suburb" value="{{restaurant.suburb}}">
     </p>
     <p>
         <label for="city">City</label>
-        <input id="city" name="city" value="{{ restaurant.city }}">
+        <input id="city" name="city" value="{{restaurant.city}}">
     </p>
     <p>
         <label for="favourite_menu_item">Favourite Menu Item</label>
-        <input id="favourite_menu_item" name="favourite_menu_item" value="{{ restaurant.favourite_menu_item }}">
+        <input id="favourite_menu_item" name="favourite_menu_item" value="{{restaurant.favourite_menu_item}}">
     </p>
     <p>
         <label for="price_pp">Price per person</label>
-        <input id="price_pp" name="price_pp" value="{{ restaurant.price_pp }}">
+        <input id="price_pp" name="price_pp" value="{{restaurant.price_pp}}">
     </p>
     <p>
         <label for="city">Rating out of five</label>
-        <input id="rating_out_of_five" name="rating_out_of_five" value="{{ restaurant.rating_out_of_five }}">
+        <input id="rating_out_of_five" name="rating_out_of_five" value="{{restaurant.rating_out_of_five}}">
     </p>
     
     <button type="submit">Save</button>
