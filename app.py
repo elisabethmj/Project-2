@@ -42,6 +42,7 @@ def index():
     cursor.execute(f"""
         SELECT *
         FROM restaurants
+        WHERE user_id = '{username}'
         LIMIT 100
     """)
     results = cursor.fetchall()
