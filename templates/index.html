@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div>
+    <ul>
+        {% for restaurant in restaurants %}
+        <!-- display each food item-->
+        <li>
+            <p>
+                {{ restaurant.id }}
+                {{ restaurant.restaurant_name }}
+            </p>
+            <a href="/update_restaurant?id={{ restaurant.id }}">Update</a>
+            
+            <form action="delete_restaurant_action" method="POST">
+                <input type="hidden" name="id" value="{{ restaurant.id }}">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+
+        {% endfor %}
+    </ul>
+</div>
+<p><a href="/restaurant/new">Add restaurant</a></p>
+{% endblock %}

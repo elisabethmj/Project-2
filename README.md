@@ -1,4 +1,5 @@
 # Project-2
 Flask app
 
-TEST
+## [Deployed game via Heroku](https://vast-sea-43918.herokuapp.com/)
+

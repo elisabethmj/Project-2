@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <form action="/restaurant/create" method="post">
+        <div>
+            <label for="user_id">Creator</label>
+            <input id="user_id" name="user_id">
+        </div>
+        <div>
+            <label for="restaurant_name">Name</label>
+            <input id="restaurant_name" name="restaurant_name">
+        </div>
+        <div>
+            <label for="suburb">Suburb</label>
+            <input id="suburb" name="suburb">
+        </div>
+        <div>
+            <label for="city">City</label>
+            <input id="city" name="city">
+        </div>
+        <div>
+            <label for="favourite_menu_item">Favourite Menu Item</label>
+            <input id="favourite_menu_item" name="favourite_menu_item">
+        </div>
+        <div>
+            <label for="price_pp">Price per person/label>
+            <input id="price_pp" name="price_pp">
+        </div>
+        <div>
+            <label for="rating_out_of_five">Rating out of 5</label>
+            <input id="rating_out_of_five" name="rating_out_of_five">
+        </div>
+        
+        <button>Create</button>
+    </form>
+{% endblock %}
