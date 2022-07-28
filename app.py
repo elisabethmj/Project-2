@@ -1,17 +1,22 @@
 from flask import Flask, request, redirect, render_template, session
 import psycopg2
 import bcrypt
+import os
 
-app = Flask(__name__)
+
 
 # setup cookie encryption as per
 # https://flask.palletsprojects.com/en/2.1.x/quickstart/#sessions
-app.secret_key = b'bhjbkbhjbhjkb^&*^&*(^&*678678'
+DATABASE_URL = os.environ.get("DATABASE_URL", 'dbname=project_2')
+SECRET_KEY = os.environ.get("SECRET_KEY", "restaurants-backup")
+
+app = Flask(__name__)
+app.secret_key = SECRET_KEY.encode()
 
 @app.route("/")
 def index():
     # get restaurant from  restaurant database
-    connection = psycopg2.connect("dbname=project_2")
+    connection = psycopg2.connect(DATABASE_URL)
     cursor = connection.cursor()
     cursor.execute("""
         SELECT *
@@ -71,7 +76,7 @@ def restaurant_create():
     rating_out_of_five = request.form.get("rating_out_of_five")
 
     # insert restaurant into restaurant_truck database
-    connection = psycopg2.connect("dbname=project_2")
+    connection = psycopg2.connect(DATABASE_URL)
     cursor = connection.cursor()
     cursor.execute("""
         INSERT INTO restaurants (user_id, restaurant_name, suburb, city, favourite_menu_item, price_pp, rating_out_of_five)
@@ -87,7 +92,7 @@ def update_food():
     id = request.args.get('id')
 
     #get food by id
-    conn = psycopg2.connect("dbname=project_2")
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute('SELECT id, user_id, restaurant_name, suburb, city, favourite_menu_item, price_pp, rating_out_of_five FROM restaurants WHERE id=%s', [id])
     results = cursor.fetchall()
@@ -120,7 +125,7 @@ def update_restaurant_action():
     rating_out_of_five = request.form.get("rating_out_of_five")
 
     # get food by id and update values
-    conn = psycopg2.connect("dbname=project_2")
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute('UPDATE restaurants SET user_id=%s, restaurant_name=%s, suburb=%s, city=%s, favourite_menu_item=%s, price_pp=%s, rating_out_of_five=%s WHERE id=%s', [user_id, restaurant_name, suburb, city, favourite_menu_item, price_pp, rating_out_of_five, id])
     conn.commit()
@@ -135,7 +140,7 @@ def delete_restaurant_action():
     id = request.form.get("id")
 
     # connect to database
-    conn = psycopg2.connect("dbname=project_2")
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute('DELETE FROM restaurants WHERE id=%s', [id])
     conn.commit()
@@ -158,7 +163,7 @@ def delete_restaurant_action():
 @app.route("/login")
 def login_page():
     # plumbing code for us to query DB
-    connection = psycopg2.connect("dbname=project_2")
+    connection = psycopg2.connect(DATABASE_URL)
     cursor = connection.cursor()
 
     # using the cookie given to us by the browser
@@ -185,7 +190,7 @@ def login_page():
 @app.route("/login", methods=["POST"])
 def process_login_form():
     # plumbing code for us to query DB
-    connection = psycopg2.connect("dbname=project_2")
+    connection = psycopg2.connect(DATABASE_URL)
     cursor = connection.cursor()
 
     # create our redirect to homepage response
