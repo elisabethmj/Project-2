@@ -220,9 +220,6 @@ def process_login_form():
     connection = psycopg2.connect(DATABASE_URL)
     cursor = connection.cursor()
 
-    # create our redirect to homepage response
-    response = redirect("/")
-
     # find user row in users table that matches the submitted username
     cursor.execute("""
         SELECT id, password_hash
@@ -232,7 +229,7 @@ def process_login_form():
     """, (request.form.get("username"),))
     user = cursor.fetchone()
     if not user:
-        return response
+        return redirect("/login")
 
     # verify that the password submitted by the user matches
     # the one in our DB
@@ -241,7 +238,7 @@ def process_login_form():
     if bcrypt.checkpw(encoded_password, hashed_password.encode()):
         session["user_id"] = user_id
 
-    return response
+    return redirect("/")
 
 @app.route("/logout")
 def logout():

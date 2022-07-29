@@ -1,11 +1,11 @@
+
+
 body {
     font-family: sans-serif;
 }
 
 img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 p, h3, span {
@@ -24,13 +24,16 @@ ul {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #300404;
+    background-color: black;
     height: 5vh;
   
-  }
+}
 
-  .nav-bar a {
+.nav-bar a {
       text-decoration: none;
       color: white;
-    
-  }
+}
+
+
+
+  
