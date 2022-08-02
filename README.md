@@ -7,7 +7,6 @@ Things to do:
 
 1. Fix database/SQL:
     - Add cuisine to restaurants database
-    - Remove "unique" constraint on restaurants name database
     - Change user_id column to username on restaurants database
     - Add location to user database (so they can say what city they are in)
 

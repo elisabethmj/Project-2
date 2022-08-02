@@ -2,11 +2,11 @@
 
 {% block main %}
 
-<div>
+<!-- <div>
     <ul>
         {% if username %}
             {% for restaurant in restaurants %}
-            <!-- display each food item-->
+            display each food item
             <li>
                 <h3>{{ restaurant.restaurant_name }}</h3>
                 
@@ -28,6 +28,42 @@
         
         {% endif %}
         
-</div>
+</div> -->
+
+{% if username %}
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Favourite Menu Item</th>
+            <th>Price (per person)</th>
+            <th>Rating</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+            {% for restaurant in restaurants %}
+        <tr>
+            <td>{{ restaurant.restaurant_name }}</td>
+            <td>{{ restaurant.suburb}}, {{ restaurant.city}}</td>
+            <td>{{ restaurant.favourite_menu_item }}</td>
+            <td>${{ restaurant.price_pp }}</td>
+            <td>{{ restaurant.rating_out_of_five }}/5</td>
+            <td>
+                <button><a href="/update_restaurant?id={{ restaurant.id }}">Update</a></button>
+                <form action="delete_restaurant_action" method="POST">
+                <input type="hidden" name="id" value="{{ restaurant.id }}">
+                <button type="submit" id="delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <!-- and so on... -->
+    </tbody>
+</table>
+        
+        {% endif %}
 
 {% endblock %}
