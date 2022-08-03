@@ -43,8 +43,10 @@ header li a:hover {
     opacity: .5;
 } 
 
-p, h3, span {
+p {
     text-transform: capitalize;
+    text-align: center;
+    font-size: 30px;
 }
 
 ul {
@@ -55,7 +57,7 @@ ul {
     display: inline; 
 }
 
-.login {
+.form-container {
     background-color: #FFFFFF;
     width: 400px;
     height: 400px;
@@ -73,7 +75,7 @@ ul {
     text-align: center;
 }
 
-#username, #password {
+.input-field {
     width: 76%;
     font-weight: 700;
     font-size: 14px;
@@ -92,12 +94,12 @@ ul {
     font-family: sans-serif;
 }
 
-#username:focus, #password:focus {
+.input-field:focus {
     border: 2px solid rgba(0, 0, 0, 0.18) !important;
         
 }
 
-#login {
+.submit-button {
     cursor: pointer;
       border-radius: 5em;
       color: #fff;
@@ -114,13 +116,13 @@ ul {
       font-family: 'Bebas Neue', cursive;
   }
 
-
-
-
+  #edit-restaurant-container {
+      height: 650px;
+  }
 
   .styled-table {
     border-collapse: collapse;
-    margin: 25px 0;
+    margin: auto auto;
     font-size: 1.4em;
     font-family: sans-serif;
     min-width: 400px;
@@ -171,3 +173,7 @@ ul {
     color: white;
     text-decoration: none;
 }
+
+.checked {
+    color: orange;
+  }

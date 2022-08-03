@@ -50,7 +50,7 @@
             <td>{{ restaurant.suburb}}, {{ restaurant.city}}</td>
             <td>{{ restaurant.favourite_menu_item }}</td>
             <td>${{ restaurant.price_pp }}</td>
-            <td>{{ restaurant.rating_out_of_five }}/5</td>
+            <td>{{ restaurant.rating_out_of_five }}/5 </td>
             <td>
                 <button><a href="/update_restaurant?id={{ restaurant.id }}">Update</a></button>
                 <form action="delete_restaurant_action" method="POST">
@@ -63,7 +63,11 @@
         <!-- and so on... -->
     </tbody>
 </table>
+
         
         {% endif %}
 
 {% endblock %}
+
+
+

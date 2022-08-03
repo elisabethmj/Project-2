@@ -5,6 +5,7 @@ import os
 
 
 
+
 # setup cookie encryption as per
 # https://flask.palletsprojects.com/en/2.1.x/quickstart/#sessions
 DATABASE_URL = os.environ.get("DATABASE_URL", 'dbname=project_2')
@@ -116,12 +117,31 @@ def restaurant_create():
 
 @app.route("/update_restaurant")
 def update_food():
-    #get id from the query instead of the form
+ 
     id = request.args.get('id')
 
-    #get food by id
     conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
+
+    user_id_from_encrypted_cookie = session.get("user_id")
+
+    if user_id_from_encrypted_cookie:
+        cursor.execute("""
+            SELECT username
+            FROM users
+            WHERE id = %s
+            LIMIT 1
+            """, (user_id_from_encrypted_cookie,))
+        result = cursor.fetchone()
+    else:
+        result = None
+
+    if result:
+        username = result[0]
+    else:
+        username = None
+
+    
     cursor.execute('SELECT id, user_id, restaurant_name, suburb, city, favourite_menu_item, price_pp, rating_out_of_five FROM restaurants WHERE id=%s', [id])
     results = cursor.fetchall()
     row = results[0]
@@ -138,7 +158,7 @@ def update_food():
     }
 
     #render an update page template
-    return render_template('edit_restaurant.html', restaurant=restaurant)
+    return render_template('edit_restaurant.html', restaurant=restaurant, username=username)
 
 @app.route('/update_restaurant_action', methods=['POST'])
 def update_restaurant_action():

@@ -1,38 +1,42 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h2>Update Restaurant</h2>
+
+<div class="form-container" id="edit-restaurant-container">
+<h2 class="sign">Update Restaurant</h2>
 
 <form action="/update_restaurant_action" method="POST">
 
     <!-- hidden -->
-    <input type="hidden" name="id" value=" {{restaurant.id}}"> 
+    <input type="hidden" class="input-field" name="id" value=" {{restaurant.id}}"> 
 
-    <p>
-        <label for="restaurant_name">Name:</label>
-        <input id="restaurant_name" name="restaurant_name" value="{{restaurant.restaurant_name}}">
-    </p>
-    <p>
-        <label for="suburb">Suburb:</label>
-        <input id="suburb" name="suburb" value="{{restaurant.suburb}}">
-    </p>
-    <p>
-        <label for="city">City</label>
-        <input id="city" name="city" value="{{restaurant.city}}">
-    </p>
-    <p>
-        <label for="favourite_menu_item">Favourite Menu Item</label>
-        <input id="favourite_menu_item" name="favourite_menu_item" value="{{restaurant.favourite_menu_item}}">
-    </p>
-    <p>
-        <label for="price_pp">Price per person</label>
-        <input id="price_pp" name="price_pp" value="{{restaurant.price_pp}}">
-    </p>
-    <p>
-        <label for="city">Rating out of five</label>
-        <input id="rating_out_of_five" name="rating_out_of_five" value="{{restaurant.rating_out_of_five}}">
-    </p>
     
-    <button type="submit">Save</button>
+       
+        <input id="restaurant_name" class="input-field" name="restaurant_name" value="{{restaurant.restaurant_name}}" placeholder="Restaurant Name">
+    
+    
+      
+        <input id="suburb" class="input-field" name="suburb" value="{{restaurant.suburb}}" placeholder="Suburb">
+    
+    
+      
+        <input id="city" class="input-field" name="city" value="{{restaurant.city}}" placeholder="City">
+    
+    
+     
+        <input id="favourite_menu_item" class="input-field" name="favourite_menu_item" value="{{restaurant.favourite_menu_item}}" placeholder="Favourite Menu Item">
+    
+    
+     
+        <input id="price_pp" class="input-field" name="price_pp" value="{{restaurant.price_pp}}" placeholder="Price per person">
+    
+    
+       
+        <input id="rating_out_of_five" class="input-field" name="rating_out_of_five" value="{{restaurant.rating_out_of_five}}" placeholder="Rating out of 5">
+    
+    
+    <button class="submit-button" type="submit">Save</button>
 </form>
+
+</div>
 {% endblock %}

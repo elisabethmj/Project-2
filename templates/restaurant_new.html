@@ -1,35 +1,33 @@
 {% extends "base.html" %}
 
 {% block main %}
+<div class="form-container" id="edit-restaurant-container">
+    <h3 class="sign">Add Restaurant</h3>
+
     <form action="/restaurant/create" method="post">
-        <div>
-            <input type="hidden" id="user_id" name="user_id" value="{{ username }}">
-        </div>
-        <div>
-            <label for="restaurant_name">Name</label>
-            <input id="restaurant_name" name="restaurant_name">
-        </div>
-        <div>
-            <label for="suburb">Suburb</label>
-            <input id="suburb" name="suburb">
-        </div>
-        <div>
-            <label for="city">City</label>
-            <input id="city" name="city">
-        </div>
-        <div>
-            <label for="favourite_menu_item">Favourite Menu Item</label>
-            <input id="favourite_menu_item" name="favourite_menu_item">
-        </div>
-        <div>
-            <label for="price_pp">Price per person</label>
-            <input id="price_pp" name="price_pp">
-        </div>
-        <div>
-            <label for="rating_out_of_five">Rating out of 5</label>
-            <input id="rating_out_of_five" name="rating_out_of_five">
-        </div>
         
-        <button>Create</button>
+            <input class="input-field" type="hidden" id="user_id" name="user_id" value="{{ username }}">
+        
+
+            <input class="input-field" id="restaurant_name" name="restaurant_name" placeholder="Restaurant Name">
+        
+    
+            <input class="input-field" id="suburb" name="suburb" placeholder="Suburb">
+        
+        
+            <input class="input-field" id="city" name="city" placeholder="City">
+        
+    
+            <input class="input-field" id="favourite_menu_item" name="favourite_menu_item" placeholder="Favourite Menu Item">
+        
+    
+            <input class="input-field" id="price_pp" name="price_pp" placeholder="Price per person">
+        
+        
+            <input class="input-field" id="rating_out_of_five" name="rating_out_of_five" placeholder="Rating out of 5">
+        
+        
+        <button class="submit-button">Create</button>
     </form>
+</div>
 {% endblock %}
