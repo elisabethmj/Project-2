@@ -1,7 +1,10 @@
 # Project-2
+
 Flask app
 
 ## [Deployed game via Heroku](https://vast-sea-43918.herokuapp.com/)
+
+Log your favourite restaurants, or restaurants to try. 
 
 Things to do:
 
@@ -17,10 +20,3 @@ Things to do:
     - Profile page with all your restaurants and options to update/delete
     - ? Search function in explore or profile page
     - ? Can see other users profiles but without option to edit their tables
-
-3. CSS:
-    - Decide on thematic colours/look
-    - Decide on table-like display of each restaurant ? drop down 
-    - Make a cool nav bar 
-    - Fix up each page - explore/home & profile could be similar, login & register could be similar
-
